@@ -1,25 +1,25 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
-import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare,} from "lucide-react";
+import { Eye, EyeOff, Loader2, MessageSquare } from "lucide-react";
 import AuthimagePattern from "../components/AuthimagePattern";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData]  = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
+  });
 
-  const {login, isLoggingIn} = useAuthStore();
+  const { login, isLoggingIn } = useAuthStore();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     login(formData);
-  }
+  };
 
   return (
-      <div className="min-h-screen grid lg:grid-cols-2">
+    <div className="min-h-screen grid lg:grid-cols-2">
       {/* left side */}
       <div className="flex flex-col justify-center items-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
@@ -43,18 +43,15 @@ const LoginPage = () => {
               <label className="label">
                 <span className="label-text font-medium">Email</span>
               </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/40 size-5" />
-                <input
-                  type="email"
-                  className="input input-bordered w-full pl-10"
-                  placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                />
-              </div>
+              <input
+                type="email"
+                className="input input-bordered w-full"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+              />
             </div>
 
             {/* Password */}
@@ -63,10 +60,9 @@ const LoginPage = () => {
                 <span className="label-text font-medium">Password</span>
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/40 size-5" />
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="input input-bordered w-full pl-10 pr-10"
+                  className="input input-bordered w-full pr-10"
                   placeholder="********"
                   value={formData.password}
                   onChange={(e) =>
@@ -87,17 +83,17 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <button 
-            type ="submit" 
-            className="btn btn-primary w-full" 
-            disabled ={isLoggingIn}
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+              disabled={isLoggingIn}
             >
               {isLoggingIn ? (
                 <>
-                <Loader2 className="size-6 animate-spin"/>
-                 Loading....
+                  <Loader2 className="size-6 animate-spin" />
+                  Loading....
                 </>
-              ):(
+              ) : (
                 "Sign In"
               )}
             </button>
@@ -105,24 +101,22 @@ const LoginPage = () => {
 
           <div className="text-center">
             <p className="text-base-content/60">
-            Don&apos;t have an account?{" "}
-            <Link to ="/signup" className ="link link-primary">
-              Create An Account
-            </Link>
+              Don&apos;t have an account?{" "}
+              <Link to="/signup" className="link link-primary">
+                Create An Account
+              </Link>
             </p>
           </div>
         </div>
       </div>
 
       {/* right side */}
-
       <AuthimagePattern
-        title = {"Welcome back!"}
-        subtitle = "Sign in to continue your conversations and catch up with your messages."
+        title={"Welcome back!"}
+        subtitle="Sign in to continue your conversations and catch up with your messages."
       />
-
     </div>
   );
 };
 
-export default LoginPage
+export default LoginPage;
