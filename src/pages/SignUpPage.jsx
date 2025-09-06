@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import { MessageSquare, Eye, EyeOff, User, Mail, Lock, Loader2 } from "lucide-react";
-import {Link} from "react-router-dom"
+import { MessageSquare, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import AuthimagePattern from "../components/AuthimagePattern";
 import toast from "react-hot-toast";
 
@@ -16,35 +16,35 @@ const SignUpPage = () => {
   const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
-  if (!formData.fullName.trim()) {
-    toast.error("Full name is required");
-    return false;
-  }
-  if (!formData.email.trim()) {
-    toast.error("Email is required");
-    return false;
-  }
-  if (!/\S+@\S+\.\S+/.test(formData.email)) {
-    toast.error("Invalid email format");
-    return false;
-  }
-  if (!formData.password) {
-    toast.error("Password is required");
-    return false;
-  }
-  if (formData.password.length < 6) {
-    toast.error("Password must be at least 6 characters");
-    return false;
-  }
-  return true;
-};
+    if (!formData.fullName.trim()) {
+      toast.error("Full name is required");
+      return false;
+    }
+    if (!formData.email.trim()) {
+      toast.error("Email is required");
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      toast.error("Invalid email format");
+      return false;
+    }
+    if (!formData.password) {
+      toast.error("Password is required");
+      return false;
+    }
+    if (formData.password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return false;
+    }
+    return true;
+  };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if (validateForm()) {
-    signup(formData);
-  }
-};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      signup(formData);
+    }
+  };
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
@@ -54,7 +54,7 @@ const handleSubmit = (e) => {
           {/* LOGO */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
-              <div className="size-12 rounded-xl br-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+              <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <MessageSquare className="size-6 text-primary" />
               </div>
               <h1 className="text-2xl font-bold mt-2">Create Account</h1>
@@ -71,18 +71,15 @@ const handleSubmit = (e) => {
               <label className="label">
                 <span className="label-text font-medium">Full Name</span>
               </label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/40 size-5" />
-                <input
-                  type="text"
-                  className="input input-bordered w-full pl-10"
-                  placeholder="John Doe"
-                  value={formData.fullName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, fullName: e.target.value })
-                  }
-                />
-              </div>
+              <input
+                type="text"
+                className="input input-bordered w-full"
+                placeholder="John Doe"
+                value={formData.fullName}
+                onChange={(e) =>
+                  setFormData({ ...formData, fullName: e.target.value })
+                }
+              />
             </div>
 
             {/* Email */}
@@ -90,18 +87,15 @@ const handleSubmit = (e) => {
               <label className="label">
                 <span className="label-text font-medium">Email</span>
               </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/40 size-5" />
-                <input
-                  type="email"
-                  className="input input-bordered w-full pl-10"
-                  placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                />
-              </div>
+              <input
+                type="email"
+                className="input input-bordered w-full"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+              />
             </div>
 
             {/* Password */}
@@ -110,10 +104,9 @@ const handleSubmit = (e) => {
                 <span className="label-text font-medium">Password</span>
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/40 size-5" />
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="input input-bordered w-full pl-10 pr-10"
+                  className="input input-bordered w-full pr-10"
                   placeholder="********"
                   value={formData.password}
                   onChange={(e) =>
@@ -134,13 +127,17 @@ const handleSubmit = (e) => {
               </div>
             </div>
 
-            <button type ="submit" className="btn btn-primary  w-full" disabled ={isSigningUp}>
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+              disabled={isSigningUp}
+            >
               {isSigningUp ? (
                 <>
-                <Loader2 className="size-6 animate-spin"/>
-                 Loading....
+                  <Loader2 className="size-6 animate-spin" />
+                  Loading....
                 </>
-              ):(
+              ) : (
                 "Create Account"
               )}
             </button>
@@ -148,22 +145,20 @@ const handleSubmit = (e) => {
 
           <div className="text-center">
             <p className="text-base-content/80">
-            Already have an account?{" "}
-            <Link to ="/login" className ="link link-primary">
-              Sign in
-            </Link>
+              Already have an account?{" "}
+              <Link to="/login" className="link link-primary">
+                Sign in
+              </Link>
             </p>
           </div>
         </div>
       </div>
 
       {/* right side */}
-
       <AuthimagePattern
-        title = "Join our community"
-        subtitle = "Connect with friends, share moments, and stay in touch with your  loved ones."
+        title="Join our community"
+        subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
       />
-
     </div>
   );
 };
